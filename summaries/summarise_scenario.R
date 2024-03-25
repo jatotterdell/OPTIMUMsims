@@ -4,7 +4,7 @@ dat_dir <- "~/out_files/optimum_sims/"
 fig_dir <- "figs"
 tab_dir <- "tabs"
 save_plots <- TRUE
-scenarios <- 1:3
+scenarios <- 6
 
 for(z in scenarios) {
 
@@ -15,7 +15,7 @@ for(z in scenarios) {
   p_ess <- plot_expected_sample_size(dec)
   p_suc <- plot_expected_success(dec)
   p_fut <- plot_futility(dec)
-  t_sum <- table_summary(dec)
+  t_sum <- table_summary(dec, nmax = 2000)
 
   if (save_plots) {
 

@@ -197,17 +197,17 @@ plot_expected_success <- function(decdat) {
 #'
 #' @param decdat The decision results from simulated trials.
 #' @return A summary table using kableExtra
-table_summary <- function(decdat, ...) {
+table_summary <- function(decdat, nmax = 2000, ...) {
   tdat <- decdat[fut_k == 0.05 & suc_k == 0.95 & sup_k == 0.95,
               .("Decide superior" = mean(fin == "success"),
-                "Stip early superior" = mean(fin == "success" & resp < 3000),
-                "No stop superior" = mean(fin == "success" & resp == 3000),
+                "Stop early superior" = mean(fin == "success" & resp < nmax),
+                "No stop superior" = mean(fin == "success" & resp == nmax),
                 "Stop futile" = mean(res == "futile"),
                 "Stop expect success" = mean(res == "expect success"),
                 "Superior following futile" = sum(fin == "success" & res == "futile") / sum(res == "futile"),
                 "Superior following expect success" =
                   sum(fin == "success" & res == "expect success") / sum(res == "expect success"),
-                "Stop early" = mean(resp < 3000),
+                "Stop early" = mean(resp < nmax),
                 "Expected sample size" = mean(enro)), keyby = .("$\\theta_a^\\star$" = p1tru, "$\\theta_w^\\star$" = p2tru)
   ]
   kable(tdat, "latex", digits = 2, linesep = " ", escape = FALSE, booktabs = TRUE) %>%
